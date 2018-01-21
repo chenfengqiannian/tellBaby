@@ -1,0 +1,6 @@
+{% extends 'admin/import_export/change_list_import_export.html' %}
+{% load static %}
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'myAdmin/js/afterCall.js' %}"></script>
+{% endblock %}
