@@ -16,6 +16,7 @@ class ResumeAdminResource(resources.ModelResource):
     class Meta:
         model = Resume
         fields =('name', 'phone')
+        import_id_fields = ('name', 'phone')
 
 @register(Resume)
 class ResumeAdmin(ImportExportModelAdmin):
