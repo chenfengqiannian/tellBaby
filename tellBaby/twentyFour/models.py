@@ -19,7 +19,7 @@ class Resume(models.Model):
         return self.name
 
     def callPhone(self):
-        return format_html('<a class="call" data-id="{}" href="skype:{}?call">拨打电话</a>',self.id,self.phone)
+        return format_html('<a class="call" data-id="{}" href="tel:{}?call">拨打电话</a>',self.id,self.phone)
 
     callPhone.short_description = '拨打电话'
 

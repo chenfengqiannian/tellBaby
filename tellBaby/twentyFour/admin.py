@@ -11,10 +11,11 @@ from import_export import resources
 from twentyFour.models import *
 
 class ResumeAdminResource(resources.ModelResource):
-    pass
+    name = Field(attribute='name', column_name='name')
+    phone = Field(attribute='phone', column_name='phone')
     class Meta:
         model = Resume
-        fields = "__all__"
+        fields =('name', 'phone')
 
 @register(Resume)
 class ResumeAdmin(ImportExportModelAdmin):
