@@ -13,6 +13,7 @@ from twentyFour.models import *
 class ResumeAdminResource(resources.ModelResource):
     name = Field(attribute='name', column_name='name')
     phone = Field(attribute='phone', column_name='phone')
+    url = Field(attribute='phone', column_name='phone')
     class Meta:
         model = Resume
         fields =('name', 'phone')
@@ -22,7 +23,7 @@ class ResumeAdminResource(resources.ModelResource):
 class ResumeAdmin(ImportExportModelAdmin):
     change_list_template='change_list_call.html'
     resource_class = ResumeAdminResource
-    list_display = ('phone','name','sex','educationBackgroud','createDateTime','states','callNum','lastDateTime','callPhone')
+    list_display = ('phone','name','educationBackgroud','createDateTime','states','callNum','lastDateTime','url','callPhone')
     list_filter=('educationBackgroud','states')
     def callNum(self,obj):
         return obj.callhistory_set.count()

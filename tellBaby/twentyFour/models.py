@@ -14,7 +14,8 @@ class Resume(models.Model):
     sexChoices = ((0, "男"), (1, "女"))
     sex = models.IntegerField("性别", choices=sexChoices, default=0)
     states = models.BooleanField('能否拨打',default=True)
-    createDateTime = models.DateTimeField(u'创建日期', auto_now_add=True)
+    createDateTime = models.DateTimeField('创建日期', auto_now_add=True)
+    url=models.URLField("简历地址",blank=True)
     def __str__(self):
         return self.name
 
@@ -22,6 +23,10 @@ class Resume(models.Model):
         return format_html('<a class="call" data-id="{}" href="tel:{}?call">拨打电话</a>',self.id,self.phone)
 
     callPhone.short_description = '拨打电话'
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.url="http://jianli.58.com/resumedetail/batch/"+self.url
+        return  super(Resume,self).save(force_insert=force_insert,force_update=force_update,using=using,update_fields=update_fields)
 
 
 class CallHistory(models.Model):
