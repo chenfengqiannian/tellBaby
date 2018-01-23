@@ -46,5 +46,6 @@ class CallHistory(models.Model):
 
         elif self.state==1:
             self.resume.states=True
+            self.remark="已同意"
         self.resume.save()
         return super(CallHistory,self).save(force_insert=force_insert,force_update=force_update,using=using,update_fields=update_fields)
