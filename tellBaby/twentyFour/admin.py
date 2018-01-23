@@ -13,11 +13,11 @@ from twentyFour.models import *
 class ResumeAdminResource(resources.ModelResource):
     name = Field(attribute='name', column_name='name')
     phone = Field(attribute='phone', column_name='phone')
-    url = Field(attribute='phone', column_name='phone')
+    url = Field(attribute='url', column_name='url')
     class Meta:
         model = Resume
         fields =('name', 'phone')
-        import_id_fields = ('name', 'phone')
+        import_id_fields = ('name', 'phone',"url")
 
 @register(Resume)
 class ResumeAdmin(ImportExportModelAdmin):
