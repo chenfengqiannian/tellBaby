@@ -9,6 +9,8 @@ from import_export.formats import base_formats
 from import_export.widgets import ForeignKeyWidget
 from import_export import resources
 from twentyFour.models import *
+class CallInline(admin.StackedInline):
+    model = CallHistory
 
 class ResumeAdminResource(resources.ModelResource):
     name = Field(attribute='name', column_name='name')
@@ -21,6 +23,7 @@ class ResumeAdminResource(resources.ModelResource):
 
 @register(Resume)
 class ResumeAdmin(ImportExportModelAdmin):
+    inlines = [CallInline]
     change_list_template='change_list_call.html'
     resource_class = ResumeAdminResource
     list_display = ('phone','name','educationBackgroud','createDateTime','states','callNum','lastDateTime','show_firm_url','callPhone')
@@ -32,7 +35,6 @@ class ResumeAdmin(ImportExportModelAdmin):
             return obj.callhistory_set.latest('createDateTime').createDateTime
     callNum.short_description = '拨打次数'
     lastDateTime.short_description="最后拨打时间"
-
 
 
 
