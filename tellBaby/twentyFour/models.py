@@ -23,11 +23,11 @@ class Resume(models.Model):
         return format_html('<a class="call" data-id="{}" href="tel:{}?call">拨打电话</a>',self.id,self.phone)
 
     callPhone.short_description = '拨打电话'
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.url="http://jianli.58.com/resumedetail/batch/"+self.url
-        return  super(Resume,self).save(force_insert=force_insert,force_update=force_update,using=using,update_fields=update_fields)
 
+    def show_firm_url(self):
+        return '<a href="%s">查看简历</a>' % (self.url)
+
+    show_firm_url.allow_tags = True
 
 class CallHistory(models.Model):
     resume = models.ForeignKey(Resume, on_delete=CASCADE)
