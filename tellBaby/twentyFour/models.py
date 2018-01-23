@@ -25,7 +25,7 @@ class Resume(models.Model):
     callPhone.short_description = '拨打电话'
 
     def show_firm_url(self):
-        return format_html('<a href="{}">查看简历</a>',self.url)
+        return format_html('<a href="{}" target="view_window">查看简历</a>',self.url)
 
     show_firm_url.allow_tags = True
 
