@@ -26,7 +26,7 @@ class ResumeAdmin(ImportExportModelAdmin):
     inlines = [CallInline]
     change_list_template='change_list_call.html'
     resource_class = ResumeAdminResource
-    list_display = ('phone','name','createDateTime','states','callNum','lastDateTime','show_firm_url','callPhone')
+    list_display = ('phone','name','lastRemake','createDateTime','states','callNum','lastDateTime','show_firm_url','callPhone')
     list_filter=('educationBackgroud','states')
     def callNum(self,obj):
         return obj.callhistory_set.count()
