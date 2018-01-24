@@ -13,39 +13,44 @@ class Resume(models.Model):
     educationBackgroud = models.IntegerField("学历", choices=educationBackgroudChoices, default=0)
     sexChoices = ((0, "男"), (1, "女"))
     sex = models.IntegerField("性别", choices=sexChoices, default=0)
-    states = models.BooleanField('能否拨打',default=True)
+    states = models.BooleanField('能否拨打', default=True)
     createDateTime = models.DateTimeField('创建日期', auto_now_add=True)
-    url=models.URLField("简历地址",blank=True)
+    url = models.URLField("简历地址", blank=True)
+
     def __str__(self):
         return self.name
 
     def callPhone(self):
-        return format_html('<a class="call" data-id="{}" href="tel:{}?call">拨打电话</a>',self.id,self.phone)
+        return format_html('<a class="call" data-id="{}" href="">拨打电话</a>', self.id)
 
     callPhone.short_description = '拨打电话'
 
     def show_firm_url(self):
-        return format_html('<a href="{}" target="view_window" >查看简历</a>',self.url)
+        return format_html('<a href="{}" target="view_window" >查看简历</a>', self.url)
 
     show_firm_url.short_description = '查看简历'
     show_firm_url.allow_tags = True
 
+
 class CallHistory(models.Model):
     resume = models.ForeignKey(Resume, on_delete=CASCADE)
     createDateTime = models.DateTimeField(u'创建日期', auto_now_add=True)
-    stateChoices = ((0, '同意'),(1, "待定"),(2, '不同意'))
+    stateChoices = ((0, '同意'), (1, "待定"), (2, '不同意'))
     state = models.IntegerField("意愿", choices=stateChoices, default=2)
     remark = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.resume.name
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        if self.state==2 or self.state==0:
-            self.resume.states=False
+        if self.state == 2 or self.state == 0:
+            self.resume.states = False
+            if self.state==0:
+                self.remark="同意"
+        elif self.state == 1:
+            self.resume.states = True
 
-        elif self.state==1:
-            self.resume.states=True
-            self.remark="已同意"
         self.resume.save()
-        return super(CallHistory,self).save(force_insert=force_insert,force_update=force_update,using=using,update_fields=update_fields)
+        return super(CallHistory, self).save(force_insert=force_insert, force_update=force_update, using=using,
+                                             update_fields=update_fields)
